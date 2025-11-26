@@ -7,4 +7,4 @@ description = "{{ post_excerpt }}"
 date = {{ post_date }}
 updated = {{ post_modified }}
 +++
-{{ post_content | safe }}
+{{ post_content | markdown }}

@@ -7,6 +7,7 @@ edition = "2024"
 anyhow = "1.0.100"
 clap = { version = "4.5.53", features = ["derive"] }
 csv = "1.4.0"
+html2md = "0.2.15"
 serde = { version = "1.0.228", features = ["derive"] }
 strfmt = "0.2.5"
 tera = "1.20.1"
@@ -14,3 +15,7 @@ tera = "1.20.1"
 [dev-dependencies]
 assert-str = "0.2.0"
 temp_testdir = "0.2.3"
+
+[profile.release]
+strip = true
+lto = true

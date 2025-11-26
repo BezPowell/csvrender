@@ -1,18 +1,15 @@
-use crate::Args;
+use crate::{Args, template::initialize_template};
 use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 use std::{collections::HashMap, fs, path::PathBuf};
 use strfmt::strfmt;
-use tera::Tera;
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Record(HashMap<String, String>);
 
 pub fn process_csv(args: Args) -> Result<()> {
     // Initialize Tera template
-    let mut tera = Tera::default();
-    tera.add_template_file(args.file_template, Some("template"))
-        .context("Error reading template.")?;
+    let tera = initialize_template(&args.file_template).context("Error reading template.")?;
 
     // Build the CSV reader and iterate over each record.
     let mut rdr = csv::Reader::from_path(args.csv)?;

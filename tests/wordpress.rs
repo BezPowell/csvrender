@@ -26,7 +26,7 @@ fn convert_wordpress() {
         date = 2025-11-26 10:39:38
         updated = 2025-11-26 10:39:38
         +++
-        <p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>
+        Welcome to WordPress. This is your first post. Edit or delete it, then start writing!
         "#
     );
 
@@ -38,7 +38,10 @@ fn convert_wordpress() {
         date = 2025-11-26 10:47:00
         updated = 2025-11-26 10:47:00
         +++
-        <p>This is another test post, to show off things.</p>
+        This is another test post, to show off things.
+
+        * A list
+        * Of 2 items
         "#
     );
 }

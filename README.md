@@ -7,11 +7,21 @@ csvrender --output-path <OUTPUT_PATH> --file-template <FILE_TEMPLATE> <CSV>
 ```
 
 ## How it Works
-Rows from a CSV are rendered using the [Tera templating engine](https://keats.github.io/tera/), which is similar to other templating engines such as Jinja. Each column in the row is made available to the templating engine as a variable, which can be inserted as normal, or used for conditional logic. The same variables can also be used in the `--output-path` filename using the [Rust string formatting rules](https://doc.rust-lang.org/std/fmt/).
+Rows from a CSV are rendered using the [Tera templating engine](https://keats.github.io/tera/), which is similar to other templating engines such as Jinja or mustache. Each column in the row is made available to the templating engine as a variable, which can be inserted as normal, or used for conditional logic. The same variables can also be used in the `--output-path` filename using the [Rust string formatting rules](https://doc.rust-lang.org/std/fmt/).
 
 Look in the tests folder to see more details of how the process works.
 
-## Example usage: Converting WordPress to Zola
+### Available Template Filters
+In addition to the full range of [built-in Tera filters](https://keats.github.io/tera/docs/#built-in-filters), `csvreader` also supports the following:
+
+#### markdown
+Converts HTML to markdown.
+
+Example: `{{ value | markdown }}`
+
+If value is `<h1>Hello World!</h1>`, the output will be `# Hello World!`.
+
+## Example Usage: Converting WordPress to Zola
 Given a CSV of WordPress posts, an example usage might be.
 ```
 csvrender --output-path "content/posts/{{post_name}}.md" --file-template "post.md" posts.csv
@@ -28,7 +38,7 @@ description = "{{ post_excerpt }}"
 date = {{ post_date }}
 updated = {{ post_modified }}
 +++
-{{ post_content | safe }}
+{{ post_content | markdown }}
 
 ```
 
@@ -39,7 +49,7 @@ title = "Hello world!"
 date = 2025-11-26 10:39:38
 updated = 2025-11-26 10:39:38
 +++
-<p>Welcome to WordPress. This is your first post. Edit or delete it, then start writing!</p>
+Welcome to WordPress. This is your first post. Edit or delete it, then start writing!
 ```
 
 ## Compiling
